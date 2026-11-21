@@ -4,7 +4,48 @@ Un "cuartel general" visual encima de tu vault de Obsidian: carrusel de seccione
 tareas de la semana, todo lo que ha hecho la IA, lo que te toca decidir y una vista de base de datos para cada carpeta.
 Todo sigue siendo **carpetas y notas Markdown** en tu ordenador, así que funciona con cualquier IA (Claude, Codex, Gemini, Grok…).
 
-## Arrancar
+## Arrancar: app nativa (Rust + Tauri)
+
+Abre **HQ** desde el Escritorio o el menú Inicio (`D:\CerebroWeb\HQ.exe`). Arranca en menos de 1 s y lleva el servidor dentro.
+
+- **Cerrar la ventana** la oculta en la **bandeja del sistema** (junto al reloj): el servidor sigue activo para el celular.
+- Menú de la bandeja: **Abrir HQ**, **Iniciar con Windows** (arranca oculta) y **Salir**.
+- Solo puede haber una abierta: si la abres de nuevo, enfoca la que ya está.
+- Si el puerto 4320 está ocupado (por ejemplo por `node server.mjs`), avisa y te deja usar ese servidor o salir.
+- La interfaz (`public/`) se lee desde disco: puedes editarla sin recompilar.
+- Logs: `%LOCALAPPDATA%\com.hq.panel\logs` (uno por día, se guardan 7).
+
+### Compilar
+
+```powershell
+cargo build --release -p hq          # app de escritorio → target\release\hq.exe
+cargo build --release -p hq-server   # mismo servidor sin ventana → target\release\hq-server.exe
+cargo test --workspace               # tests unitarios y de integración (vault temporal)
+cargo clippy --workspace --all-targets -- -D warnings
+```
+
+Después de compilar, copia `target\release\hq.exe` a `D:\CerebroWeb\HQ.exe` (los accesos directos apuntan ahí).
+El `.exe` no está firmado: con **Smart App Control** activado, Windows lo bloquea.
+
+### Estructura
+
+| Carpeta | Qué es |
+|---|---|
+| `crates/hq-core` | Núcleo en Rust: vault, frontmatter, API HTTP (axum), Sheets, correo, preferencias |
+| `crates/hq-server` | El servidor sin ventana (reemplazo 1:1 de `node server.mjs`) |
+| `src-tauri` | La app de escritorio: ventana, bandeja, inicio con Windows, logs |
+| `tools/paridad.mjs` | Compara Node y Rust ruta por ruta sobre el vault real (solo lectura) |
+| `server.mjs` | Servidor Node original, como respaldo |
+
+Para comprobar que Rust y Node responden igual:
+
+```powershell
+$env:HQ_PORT=4321; node server.mjs     # en una terminal
+.\target\release\hq-server.exe         # en otra (puerto 4320)
+node tools/paridad.mjs                 # 505/505 iguales en la última verificación
+```
+
+## Arrancar: servidor Node (respaldo)
 
 ```powershell
 node scripts/crear-vault-ejemplo.mjs   # solo la primera vez: crea ./vault con datos de ejemplo
@@ -87,7 +128,7 @@ schtasks /create /tn "HQ copia diaria" /sc daily /st 23:45 /tr "powershell -NoPr
 
 ## Que arranque solo al encender el PC
 
-Pulsa `Win + R`, escribe `shell:startup` y crea ahí un acceso directo a `iniciar-hq.vbs` (arranca el servidor sin ventana).
+Con la app nativa: menú de la bandeja → **Iniciar con Windows**. (Solo con Node: `Win + R` → `shell:startup` y un acceso directo a `iniciar-hq.vbs`; no uses las dos cosas a la vez, ocuparían el mismo puerto.)
 
 ## Verlo desde el móvil (Tailscale)
 

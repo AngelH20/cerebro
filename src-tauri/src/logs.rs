@@ -1,4 +1,4 @@
-//! Log rotativo diario en la carpeta de datos de la app (`%APPDATA%\com.hq.panel\logs`), 7 días.
+//! Log rotativo diario en la carpeta de datos de la app (`%LOCALAPPDATA%\com.hq.panel\logs`), 7 días.
 
 use std::path::Path;
 
