@@ -8,7 +8,8 @@ const [A = 'http://127.0.0.1:4321', B = 'http://127.0.0.1:4320'] = process.argv.
 const IGNORAR = new Set(['leido']);
 
 async function pedir(base, ruta, opts = {}) {
-  const r = await fetch(base + ruta, opts);
+  let r;
+  try { r = await fetch(base + ruta, opts); } catch (e) { return { status: `conexión cortada (${e.cause?.code || e.message})`, tipo: '', cuerpo: '' }; }
   const buf = Buffer.from(await r.arrayBuffer());
   const tipo = (r.headers.get('content-type') || '').split(';')[0];
   let cuerpo = buf;

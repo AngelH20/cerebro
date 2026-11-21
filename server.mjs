@@ -557,7 +557,7 @@ const server = http.createServer(async (req, res) => {
           const name = String(q.get('nombre') || '').toLowerCase();
           const f = idx.files.find(x => x.toLowerCase() === name) || idx.files.find(x => baseOf(x).toLowerCase() === name.split('/').pop());
           if (!f) return json(res, 404, { error: 'Archivo no encontrado' });
-          return sendFile(res, safe(f));
+          return await sendFile(res, safe(f));
         }
         case 'GET /api/events': {
           res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', Connection: 'keep-alive' });
@@ -570,17 +570,17 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
-    if (p.startsWith('/vault/')) return sendFile(res, safe(p.slice(7)));
+    if (p.startsWith('/vault/')) return await sendFile(res, safe(p.slice(7)));
     if (p.startsWith('/portadas/')) {
       const name = p.slice(10);
       if (!IMG_RE.test(name)) return json(res, 404, { error: 'No encontrado' });
-      return sendFile(res, path.join(PORTADAS, name));
+      return await sendFile(res, path.join(PORTADAS, name));
     }
 
     let f = path.join(PUBLIC, p === '/' ? 'index.html' : p);
     if (!f.startsWith(PUBLIC + path.sep)) return json(res, 403, { error: 'No permitido' });
     if (!fss.existsSync(f)) f = path.join(PUBLIC, 'index.html');
-    return sendFile(res, f);
+    return await sendFile(res, f);
   } catch (e) {
     const status = e.status || (e.code === 'ENOENT' ? 404 : 500);
     if (status >= 500) console.error(e);
