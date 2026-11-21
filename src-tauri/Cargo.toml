@@ -1,0 +1,25 @@
+[package]
+name = "hq"
+description = "HQ: panel nativo sobre tu vault de Obsidian"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[build-dependencies]
+tauri-build = { version = "2.5", features = [] }
+
+[dependencies]
+hq-core.workspace = true
+anyhow.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-appender.workspace = true
+tracing-subscriber.workspace = true
+tauri = { version = "2.12", features = ["tray-icon"] }
+tauri-plugin-single-instance = "2.3"
+tauri-plugin-autostart = "2.5"
+tauri-plugin-dialog = "2.8"
