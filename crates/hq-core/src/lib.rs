@@ -10,6 +10,7 @@ pub mod correo;
 pub mod error;
 pub mod fechas;
 pub mod frontmatter;
+pub mod http;
 pub mod js;
 pub mod markdown;
 pub mod paths;
