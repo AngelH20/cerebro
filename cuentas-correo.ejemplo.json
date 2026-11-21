@@ -1,0 +1,9 @@
+{
+  "_ayuda": "Copia este archivo como cuentas-correo.json. Por cada Gmail: activa la verificación en 2 pasos y crea una contraseña de aplicación en https://myaccount.google.com/apppasswords (16 letras). Pégala en password_app.",
+  "dias_iniciales": 30,
+  "max_por_vez": 300,
+  "cuentas": [
+    { "nombre": "Personal", "email": "tu.correo@gmail.com", "password_app": "xxxx xxxx xxxx xxxx" },
+    { "nombre": "LeAn3D", "email": "lean3d@gmail.com", "password_app": "xxxx xxxx xxxx xxxx" }
+  ]
+}

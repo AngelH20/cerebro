@@ -1,0 +1,10 @@
+{
+  "name": "hq-panel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Panel HQ local sobre un vault de Obsidian",
+  "scripts": {
+    "start": "node server.mjs",
+    "ejemplo": "node scripts/crear-vault-ejemplo.mjs"
+  }
+}

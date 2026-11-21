@@ -1,0 +1,26 @@
+{
+  "nombre": "HQ",
+  "vault": "D:/Cerebro",
+  "port": 4320,
+  "host": "127.0.0.1",
+  "moneda": "ARS",
+  "locale": "es-AR",
+  "hostsPermitidos": [],
+  "sistema": {
+    "tareas": "Tareas",
+    "decidir": "Sistema/Decidir",
+    "aprendido": "Sistema/Aprendido",
+    "diario": "Diario",
+    "registro": "Sistema/maquina/registro-ia.jsonl"
+  },
+  "secciones": [
+    { "id": "contenido", "nombre": "Creación de contenido", "corto": "Contenido", "carpeta": "Contenido", "icono": "contenido", "escena": "estanque" },
+    { "id": "formacion", "nombre": "Formación", "carpeta": "Formación", "icono": "formacion", "escena": "bosque", "tipo": "estudio" },
+    { "id": "aprender", "nombre": "Aprender", "carpeta": "Aprender", "icono": "aprender", "escena": "montanas", "tipo": "estudio" },
+    { "id": "lean3d", "nombre": "LeAn3D", "corto": "LeAn3D", "carpeta": "LeAn3D", "icono": "lean3d", "escena": "taller", "tipo": "negocio", "pedidos": "Pedidos", "cuenta": "LeAn3D" },
+    { "id": "bandeja", "nombre": "Bandeja de correo", "corto": "Bandeja", "carpeta": "Bandeja", "icono": "bandeja", "escena": "mar", "tipo": "bandeja", "correos": "maquina/correos" },
+    { "id": "finanzas", "nombre": "Finanzas", "carpeta": "Finanzas", "icono": "finanzas", "escena": "atardecer", "tipo": "finanzas", "movimientos": "Movimientos", "cuentas": ["LeAn3D", "Personal"] },
+    { "id": "gimnasio", "nombre": "Powerlifting", "corto": "Gym", "carpeta": "Gimnasio", "icono": "gimnasio", "escena": "gimnasio", "tipo": "hojas", "analisis": "gym" },
+    { "id": "nutricion", "nombre": "Nutrición", "carpeta": "Nutrición", "icono": "nutricion", "escena": "pradera", "tipo": "hojas", "analisis": "nutricion" }
+  ]
+}

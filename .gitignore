@@ -1,0 +1,18 @@
+# Secretos y datos personales: nunca al repositorio
+cuentas-correo.json
+.correo-estado.json
+hq.preferencias.json
+portadas/
+
+# Vault de ejemplo (el real está en D:\Cerebro)
+vault/
+
+# Compilación y dependencias
+target/
+src-tauri/target/
+src-tauri/gen/
+node_modules/
+
+# Logs y temporales
+*.log
+__pycache__/
